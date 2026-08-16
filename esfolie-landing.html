@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Esfolié — Esfoliante para Pés e Mãos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Allura&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#E3A72C;
+    --gold-deep:#C88A1B;
+    --sage:#A9B89A;
+    --forest:#5C6E4B;
+    --forest-deep:#3E4A30;
+    --sand:#F5E6D6;
+    --cream:#FBF5EC;
+    --paper:#FFFDF9;
+    --ink:#3A3226;
+    --line:rgba(62,74,48,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;color-scheme:light only;background:#FBF5EC;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;letter-spacing:-0.01em;}
+  .script{font-family:'Allura',cursive;font-weight:400;}
+  .eyebrow{
+    font-size:0.7rem;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--forest);
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(251,245,236,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;max-width:1120px;margin:0 auto;
+  }
+  .brandmark{display:flex;align-items:center;gap:9px;font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold-deep);font-weight:700;}
+  .navlinks{display:flex;gap:36px;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:var(--forest-deep);}
+  .navlinks a{position:relative;padding-bottom:4px;transition:opacity .25s ease;}
+  .navlinks a:hover{opacity:0.6;}
+  .nav-social{
+    display:flex;align-items:center;gap:8px;
+    font-size:0.72rem;letter-spacing:0.06em;font-weight:600;color:var(--forest-deep);
+    border:1px solid var(--line);padding:9px 16px;border-radius:999px;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .nav-social:hover{border-color:var(--gold);color:var(--gold-deep);}
+  .nav-social svg{width:14px;height:14px;flex-shrink:0;}
+  .nav-social.tiktok{border-color:rgba(227,167,44,0.4);color:var(--gold-deep);}
+  .nav-social.tiktok:hover{border-color:var(--gold);background:rgba(227,167,44,0.08);}
+  .nav-socials{display:flex;gap:10px;}
+  @media (max-width:1080px){
+    .nav-social{padding:9px;}
+    .nav-social .label{display:none;}
+  }
+  @media (max-width:820px){.navlinks{display:none;}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:176px 32px 110px;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    max-width:760px;margin:0 auto;
+    background:#FFFFFF;
+  }
+  .hero-section{background:#FFFFFF;}
+  .hero-copy{max-width:640px;}
+  .hero-copy .lede{margin-left:auto;margin-right:auto;}
+  .hero-divider{margin-left:auto;margin-right:auto;}
+  .hero-copy{position:relative;z-index:1;}
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;
+    color:var(--forest);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 10px;
+    margin-bottom:30px;
+  }
+  .kicker span.dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+  .hero-copy h1{
+    font-size:clamp(3rem,6.4vw,4.9rem);
+    line-height:0.94;color:var(--gold);
+  }
+  .hero-copy .script{
+    font-size:clamp(2.3rem,5vw,3.6rem);
+    color:var(--forest-deep);
+    display:block;margin-top:-2px;margin-bottom:26px;
+  }
+  .hero-copy p.lede{
+    font-size:1rem;line-height:1.75;color:#5a5142;max-width:420px;margin-bottom:36px;
+    font-weight:300;
+  }
+  .hero-divider{width:48px;height:1px;background:var(--gold);margin-bottom:22px;}
+  .hero-note{font-size:0.78rem;color:var(--forest-deep);font-weight:500;letter-spacing:0.02em;}
+  .hero-note strong{color:var(--gold-deep);}
+
+  @media (max-width:900px){
+    .hero{padding-top:140px;}
+  }
+
+  /* ---------- concept band ---------- */
+  .concept{
+    background:var(--gold);
+    color:var(--forest-deep);
+    padding:120px 32px;
+  }
+  .concept-inner{max-width:700px;margin:0 auto;text-align:center;}
+  .concept .eyebrow{color:var(--forest-deep);opacity:0.75;justify-content:center;display:flex;margin-bottom:22px;}
+  .concept h2{font-size:clamp(1.9rem,3.6vw,2.6rem);color:var(--forest-deep);margin-bottom:32px;line-height:1.28;font-weight:500;}
+  .concept h2 em{font-style:normal;color:var(--paper);}
+  .concept p{font-size:1rem;line-height:1.9;color:#4A3F1E;margin-bottom:20px;font-weight:300;}
+  .concept p strong{color:var(--forest-deep);font-weight:600;}
+  .concept-rule{width:36px;height:1px;background:rgba(62,50,20,0.35);margin:36px auto;}
+  .concept-quote{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:500;
+    font-size:1.15rem;color:var(--forest-deep);line-height:1.6;
+  }
+
+  /* ---------- benefits ---------- */
+  .benefits{padding:110px 32px 90px;}
+  .section-head{text-align:center;max-width:560px;margin:0 auto 60px;}
+  .section-head .eyebrow{justify-content:center;display:flex;margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.9rem,3.6vw,2.4rem);color:var(--forest-deep);font-weight:500;}
+  .section-head h2 .script{color:var(--gold);font-size:1.25em;}
+
+  .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);}
+  .benefit-card{
+    padding:40px 28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .benefit-card:last-child{border-right:none;}
+  .benefit-icon{
+    width:44px;height:44px;border-radius:50%;
+    border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .benefit-icon svg{width:19px;height:19px;stroke:var(--gold-deep);}
+  .benefit-card h3{font-size:1.15rem;color:var(--forest-deep);margin-bottom:8px;font-weight:500;}
+  .benefit-card p{font-size:0.86rem;line-height:1.65;color:#6b5f4d;}
+  @media (max-width:760px){
+    .benefit-grid{grid-template-columns:1fr;}
+    .benefit-card{border-right:none;}
+  }
+
+  /* ---------- aromas ---------- */
+  .aromas{padding:0 32px 110px;}
+  .aroma-grid{
+    max-width:1120px;margin:0 auto;
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+    border:1px solid var(--line);
+  }
+  .aroma-card{background:var(--paper);padding:44px 40px;display:flex;gap:20px;align-items:flex-start;}
+  .aroma-icon{
+    width:46px;height:46px;border-radius:50%;flex-shrink:0;
+    background:var(--sand);display:flex;align-items:center;justify-content:center;
+  }
+  .aroma-icon svg{width:20px;height:20px;stroke:var(--gold-deep);}
+  .aroma-card h3{font-size:1.1rem;color:var(--forest-deep);margin-bottom:6px;font-weight:500;}
+  .aroma-card span.tag{display:block;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:6px;}
+  .aroma-card p{font-size:0.85rem;line-height:1.6;color:#6b5f4d;}
+  @media (max-width:700px){.aroma-grid{grid-template-columns:1fr;}}
+
+  /* ---------- product split ---------- */
+  .product-split{
+    background:var(--sand);
+    padding:100px 60px;
+    display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;align-items:center;
+    max-width:1120px;margin:0 auto;
+  }
+  .ps-visual{position:relative;}
+  .ps-soap{
+    width:100%;max-width:320px;margin:0 auto;aspect-ratio:4/3;position:relative;
+  }
+  .ps-oval{
+    position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);
+    width:78%;height:56%;border-radius:52% 48% 46% 54%/58% 55% 45% 42%;
+    background:linear-gradient(150deg,#EFDFC0,#DEC48F 55%,#C9A468);
+    box-shadow:0 22px 40px -16px rgba(80,58,20,0.3);
+  }
+  .ps-label{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);text-align:center;}
+  .ps-label .name{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold-deep);font-size:1.15rem;}
+  .ps-label .sub{font-family:'Montserrat';letter-spacing:0.14em;font-size:0.58rem;color:var(--forest-deep);text-transform:uppercase;margin-top:2px;}
+  .ps-copy .eyebrow{margin-bottom:14px;}
+  .ps-copy h2{font-size:clamp(1.7rem,3.2vw,2.2rem);color:var(--forest-deep);margin-bottom:26px;line-height:1.3;font-weight:500;}
+  .ps-cols{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+  .ps-col{border-top:1px solid rgba(92,110,75,0.25);padding-top:18px;}
+  .ps-col h4{
+    display:flex;align-items:center;gap:9px;font-size:0.95rem;color:var(--gold-deep);margin-bottom:8px;font-family:'Playfair Display',serif;font-weight:600;
+  }
+  .ps-col h4 svg{width:18px;height:18px;stroke:var(--forest-deep);}
+  .ps-col p{font-size:0.84rem;line-height:1.65;color:#6b5f4d;}
+  @media (max-width:900px){
+    .product-split{grid-template-columns:1fr;padding:64px 28px;gap:40px;}
+    .ps-cols{grid-template-columns:1fr;}
+  }
+
+  /* ---------- how to use ---------- */
+  .howto{padding:110px 32px;}
+  .steps{
+    max-width:820px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;
+  }
+  .steps::before{
+    content:"";position:absolute;top:24px;left:17%;right:17%;height:1px;
+    background:var(--line);
+  }
+  .step{text-align:center;padding:0 18px;position:relative;}
+  .step-num{
+    width:50px;height:50px;border-radius:50%;background:var(--cream);
+    border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 22px;
+    position:relative;z-index:1;
+    font-family:'Playfair Display',serif;font-weight:600;color:var(--gold-deep);font-size:1.05rem;
+  }
+  .step h3{font-size:1.05rem;color:var(--forest-deep);margin-bottom:8px;font-weight:500;}
+  .step p{font-size:0.84rem;color:#6b5f4d;line-height:1.6;max-width:210px;margin:0 auto;}
+  @media (max-width:700px){
+    .steps{grid-template-columns:1fr;gap:40px;}
+    .steps::before{display:none;}
+  }
+
+  /* ---------- follow band ---------- */
+  .follow{background:var(--gold);padding:100px 32px;}
+  .follow-inner{max-width:640px;margin:0 auto;text-align:center;}
+  .follow .eyebrow{color:var(--forest-deep);opacity:0.8;justify-content:center;display:flex;margin-bottom:18px;}
+  .follow h2{color:var(--forest-deep);font-size:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:16px;font-weight:500;line-height:1.3;}
+  .follow p{color:#4A3F1E;font-size:0.92rem;line-height:1.7;margin-bottom:32px;font-weight:300;}
+  .follow-link{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid rgba(62,50,20,0.4);border-radius:999px;
+    padding:13px 26px;color:var(--forest-deep);font-size:0.8rem;font-weight:600;letter-spacing:0.04em;
+    transition:border-color .25s ease, background .25s ease;
+  }
+  .follow-link:hover{border-color:var(--forest-deep);background:rgba(62,74,48,0.08);}
+  .follow-link svg{width:16px;height:16px;}
+  .follow-link.tiktok{border-color:rgba(62,50,20,0.4);}
+  .follow-link.tiktok svg{stroke:var(--forest-deep);}
+  .follow-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+  /* ---------- footer strip ---------- */
+  .strip{
+    background:var(--cream);padding:34px 32px;
+    display:flex;justify-content:center;gap:50px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+  }
+  .strip-item{display:flex;align-items:center;gap:8px;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--forest-deep);}
+  .strip-item svg{width:15px;height:15px;stroke:var(--gold-deep);}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--gold);color:var(--forest-deep);padding:60px 32px 30px;}
+  .foot-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;}
+  .foot-brand h3{font-family:'Playfair Display',serif;color:var(--forest-deep);font-size:1.5rem;}
+  .foot-brand .script{color:var(--forest-deep);opacity:0.75;font-size:1.15rem;}
+  .foot-brand p{margin-top:12px;font-size:0.8rem;color:#4A3F1E;max-width:250px;line-height:1.6;}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap;}
+  .foot-col h4{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--forest-deep);opacity:0.7;margin-bottom:14px;}
+  .foot-col a{display:block;font-size:0.82rem;color:#4A3F1E;margin-bottom:9px;transition:color .25s ease;}
+  .foot-col a:hover{color:var(--forest-deep);}
+  .foot-bottom{
+    max-width:1120px;margin:50px auto 0;padding-top:22px;border-top:1px solid rgba(62,50,20,0.25);
+    display:flex;justify-content:space-between;font-size:0.7rem;color:#5c4f28;flex-wrap:wrap;gap:12px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brandmark">
+      Esfolié
+    </div>
+    <div class="navlinks">
+      <a href="#conceito">Conceito</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#produto">Produto</a>
+      <a href="#como-usar">Como usar</a>
+    </div>
+    <div class="nav-socials">
+      <a href="https://instagram.com/esfolie.oficial" target="_blank" class="nav-social">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        <span class="label">@esfolie.oficial</span>
+      </a>
+      <a href="https://tiktok.com/@esfolie" target="_blank" class="nav-social tiktok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v9.5a3.5 3.5 0 11-3-3.46"/><path d="M14 4c.3 2.2 1.9 3.9 4 4.2"/></svg>
+        <span class="label">@esfolie</span>
+      </a>
+    </div>
+    </div>
+  </nav>
+</header>
+
+<section class="hero-section"><section class="hero">
+  <div class="hero-copy">
+    <span class="kicker"><span class="dot"></span>Esfoliante natural para pés e mãos</span>
+    <h1>Esfolié</h1>
+    <span class="script">Esfoliante</span>
+    <p class="lede">Um ritual simples que une o natural e o sofisticado: renova a pele, suaviza o toque e devolve a leveza que o dia a dia tira de você.</p>
+    <div class="hero-divider"></div>
+    <p class="hero-note">Essências de <strong>maracujá</strong> e <strong>baunilha</strong> · siga em <strong>@esfolie.oficial</strong></p>
+  </div>
+</section>
+</section>
+
+<section class="concept" id="conceito">
+  <div class="concept-inner reveal">
+    <span class="eyebrow">Conceito da marca</span>
+    <h2>Autocuidado deve ser <em>simples</em>, prazeroso e ao alcance de todos os dias.</h2>
+    <p>Esfolié nasceu do desejo de unir o que há de <strong>natural e eficaz</strong> em um cuidado diário que transforma a pele — e a autoestima.</p>
+    <p>Nossos esfoliantes para pés e mãos promovem <strong>renovação, suavidade e hidratação</strong>, deixando a pele macia, saudável e radiante todos os dias.</p>
+    <div class="concept-rule"></div>
+    <p class="concept-quote">"Mais do que um produto, Esfolié é um lembrete diário de que pequenos gestos geram grandes transformações."</p>
+  </div>
+</section>
+
+<section class="benefits" id="beneficios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">O que ele faz</span>
+      <h2>Três passos para uma pele <span class="script">renovada</span></h2>
+    </div>
+    <div class="benefit-grid reveal">
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" stroke-width="1.2"/></svg></div>
+        <h3>Renova</h3>
+        <p>Remove células mortas e revela uma pele nova, uniforme e visivelmente mais macia.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3C12 3 5 8 5 15a7 7 0 0014 0c0-7-7-12-7-12z" stroke-width="1.3"/></svg></div>
+        <h3>Suaviza</h3>
+        <p>Deixa a pele macia, uniforme e com um toque aveludado, do primeiro ao último uso.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3s6 7 6 11.5a6 6 0 01-12 0C6 10 12 3 12 3z" stroke-width="1.3"/></svg></div>
+        <h3>Hidrata</h3>
+        <p>Hidratação profunda que acompanha você durante o dia, para uma pele saudável e radiante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="aromas">
+  <div class="aroma-grid reveal">
+    <div class="aroma-card">
+      <div class="aroma-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><circle cx="12" cy="12" r="7"/><path d="M12 8v4l3 2"/></svg></div>
+      <div>
+        <span class="tag">Aroma</span>
+        <h3>Maracujá</h3>
+        <p>Nota cítrica e adocicada, que desperta os sentidos logo no primeiro contato.</p>
+      </div>
+    </div>
+    <div class="aroma-card">
+      <div class="aroma-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M12 3v18M8 7c0 4 4 4 4 8M16 7c0 4-4 4-4 8"/></svg></div>
+      <div>
+        <span class="tag">Aroma</span>
+        <h3>Baunilha</h3>
+        <p>Fundo quente e aconchegante, que prolonga a sensação de cuidado após o banho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="product-split reveal" id="produto">
+    <div class="ps-visual">
+      <div class="ps-soap">
+        <div class="ps-oval"></div>
+        <div class="ps-label"><div class="name">Esfolié</div><div class="sub">Esfoliante</div></div>
+      </div>
+    </div>
+    <div class="ps-copy">
+      <span class="eyebrow">Cuidado completo</span>
+      <h2>Um único ritual para <span class="script" style="font-size:1.2em;color:var(--gold-deep);">pés e mãos</span></h2>
+      <div class="ps-cols">
+        <div class="ps-col">
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M8 21c-1-3 0-6 2-8s2-6-1-9c4 0 7 3 7 7 3-1 6 1 6 4-3 0-5 2-5 5"/></svg>Pés</h4>
+          <p>Remove células mortas, reduz o ressecamento e deixa a pele macia e renovada.</p>
+        </div>
+        <div class="ps-col">
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M8 12V6a1.5 1.5 0 013 0v5M11 11V4a1.5 1.5 0 013 0v7M14 11V6a1.5 1.5 0 013 0v6M17 12v-2a1.5 1.5 0 013 0v6a6 6 0 01-6 6H10a6 6 0 01-5-3l-2-4c-.6-1 .3-2.3 1.5-2 .7.2 1.2.7 1.5 1.3l1 2"/></svg>Mãos</h4>
+          <p>Esfolia suavemente, remove impurezas e deixa a pele lisa, hidratada e saudável.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="howto" id="como-usar">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ritual diário</span>
+      <h2>Como usar</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Molhe</h3>
+        <p>Molhe a área desejada com água morna.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Esfolie</h3>
+        <p>Massageie o Esfolié em movimentos circulares.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Enxágue</h3>
+        <p>Enxágue bem e sinta sua pele renovada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <span class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M12 3C12 3 5 8 5 15a7 7 0 0014 0c0-7-7-12-7-12z"/></svg>Natural</span>
+  <span class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><path d="M12 2l1.6 7.4L21 11l-7.4 1.6L12 20l-1.6-7.4L3 11l7.4-1.6z"/></svg>Renovação</span>
+  <span class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M12 3s6 7 6 11.5a6 6 0 01-12 0C6 10 12 3 12 3z"/></svg>Hidratação</span>
+  <span class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><path d="M8 12V6a1.5 1.5 0 013 0v5M11 11V4a1.5 1.5 0 013 0v7M14 11V6a1.5 1.5 0 013 0v6M17 12v-2a1.5 1.5 0 013 0v6a6 6 0 01-6 6H10a6 6 0 01-5-3l-2-4c-.6-1 .3-2.3 1.5-2 .7.2 1.2.7 1.5 1.3l1 2"/></svg>Cuidado</span>
+  <span class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M20.8 8.6c0 5.4-8.8 10.4-8.8 10.4S3.2 14 3.2 8.6a4.6 4.6 0 018.8-2 4.6 4.6 0 018.8 2z"/></svg>Suavidade</span>
+</div>
+
+<section class="follow">
+  <div class="follow-inner reveal">
+    <span class="eyebrow">Já disponível</span>
+    <h2>Pele renovada, confiança que brilha.</h2>
+    <p>O Esfolié já está disponível. Siga nosso perfil para acompanhar os bastidores e as novidades da marca.</p>
+    <div class="follow-links">
+      <a href="https://instagram.com/esfolie.oficial" target="_blank" class="follow-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        @esfolie.oficial
+      </a>
+      <a href="https://tiktok.com/@esfolie" target="_blank" class="follow-link tiktok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v9.5a3.5 3.5 0 11-3-3.46"/><path d="M14 4c.3 2.2 1.9 3.9 4 4.2"/></svg>
+        @esfolie
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <h3>Esfolié</h3>
+      <span class="script">Esfoliante</span>
+      <p>Uma marca de esfoliante para pés e mãos que traduz cuidado, renovação e suavidade em cada gesto.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col">
+        <h4>Marca</h4>
+        <a href="#conceito">Conceito</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#produto">Produto</a>
+      </div>
+      <div class="foot-col">
+        <h4>Redes</h4>
+        <a href="https://instagram.com/esfolie.oficial" target="_blank">Instagram · @esfolie.oficial</a>
+        <a href="https://tiktok.com/@esfolie" target="_blank">TikTok · @esfolie</a>
+        <a href="https://linktr.ee/Esfolie.oficial" target="_blank">linktr.ee/Esfolie.oficial</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Esfolié. Todos os direitos reservados.</span>
+    <span>Pele renovada · Toque suave</span>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
